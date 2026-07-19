@@ -77,14 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Orbit.AI — Crowd, Mobility & Resource Intelligence Platform" },
+      { name: "description", content: "AI-powered command platform for real-time crowd monitoring, prediction, emergency response and smart resource allocation. Built by Orbit Services." },
+      { name: "author", content: "Orbit Services" },
+      { property: "og:title", content: "Orbit.AI — AI Command Platform for Smart Cities" },
+      { property: "og:description", content: "Real-time crowd heatmaps, predictive analytics, AI risk scoring and unified emergency response — one platform, seven modules." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@OrbitServices" },
     ],
     links: [
       {
