@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { Globe, Send, Rss, Mail } from "lucide-react";
 import logo from "@/assets/logo.png.asset.json";
 import { MODULES } from "@/lib/site-data";
 
@@ -20,7 +20,7 @@ export function Footer() {
             transportation hubs, stadiums and public safety command centers.
           </p>
           <div className="mt-4 flex gap-2">
-            {[Twitter, Linkedin, Github, Mail].map((Icon, i) => (
+            {[Globe, Send, Rss, Mail].map((Icon, i) => (
               <a key={i} href="#" className="grid h-9 w-9 place-items-center rounded-lg border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition">
                 <Icon className="h-4 w-4" />
               </a>
