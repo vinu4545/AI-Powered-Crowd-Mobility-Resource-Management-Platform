@@ -56,25 +56,20 @@ export function Navbar() {
                 >
                   <div className="w-[min(780px,92vw)] rounded-[28px] border border-slate-200/70 bg-white shadow-[0_24px_80px_-40px_rgba(15,23,42,0.18)]">
                     <div className="grid gap-3 px-4 py-4 sm:grid-cols-2 sm:px-5 sm:py-5">
-                      {MODULES.map((m) => {
-                        const Icon = m.icon;
-                        return (
-                          <Link
-                            key={m.slug}
-                            to={"/modules/$slug" as any}
-                            params={{ slug: m.slug } as any}
-                            className="group flex gap-3 rounded-3xl border border-transparent bg-white px-4 py-4 transition hover:border-slate-200/80 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
-                          >
-                            <div className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white shadow-sm transition group-hover:scale-105", m.accent)}>
-                              <Icon className="h-5 w-5" aria-hidden="true" />
-                            </div>
-                            <div className="min-w-0">
-                              <p className="text-base font-semibold text-slate-950 leading-6">{m.title}</p>
-                              <p className="mt-1 text-sm leading-6 text-slate-500 truncate">{m.short}</p>
-                            </div>
-                          </Link>
-                        );
-                      })}
+                      {MODULES.map((m) => (
+                        <Link
+                          key={m.slug}
+                          to={"/modules/$slug" as any}
+                          params={{ slug: m.slug } as any}
+                          className="group flex gap-3 rounded-3xl border border-transparent bg-white px-4 py-4 transition hover:border-slate-200/80 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
+                        >
+                          <ModuleIcon accent={m.accent} icon={m.icon} />
+                          <div className="min-w-0">
+                            <p className="text-base font-semibold text-slate-950 leading-6">{m.title}</p>
+                            <p className="mt-1 text-sm leading-6 text-slate-500 truncate">{m.short}</p>
+                          </div>
+                        </Link>
+                      ))}
                     </div>
                     <div className="border-t border-slate-200/70 bg-slate-50 px-5 py-4 sm:px-6">
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -105,6 +100,14 @@ export function Navbar() {
         </Link>
       </div>
     </header>
+  );
+}
+
+function ModuleIcon({ icon: Icon, accent }: { icon: React.ComponentType<{ className?: string }> ; accent: string }) {
+  return (
+    <div className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] border border-white/50 bg-gradient-to-br p-0 text-white shadow-[0_10px_24px_-14px_rgba(15,23,42,0.35)] transition duration-300 ease-out group-hover:-translate-y-0.5 group-hover:scale-[1.04] group-hover:shadow-[0_14px_30px_-14px_rgba(15,23,42,0.35)]", accent)}>
+      <Icon className="h-5.5 w-5.5 stroke-[1.8]" aria-hidden="true" />
+    </div>
   );
 }
 
