@@ -54,7 +54,12 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-8 pb-24">
+    <motion.section
+      className="relative overflow-hidden pt-8 pb-24"
+      initial={{ opacity: 0, y: 22 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.75, ease: "easeOut" }}
+    >
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 grid-bg opacity-60" />
         <div className="absolute -top-40 -right-32 h-[500px] w-[500px] rounded-full bg-primary/20 blur-3xl" />
@@ -71,8 +76,8 @@ function Hero() {
             <Sparkles className="h-3.5 w-3.5" />
             Real-Time · Predictive · Gemini-Powered
           </div>
-          <h1 className="mt-5 text-5xl md:text-6xl font-bold tracking-tight leading-[1.05]">
-            AI-Powered <span className="text-gradient">Crowd, Mobility &amp;</span> Resource Management Platform
+          <h1 className="mt-5 text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-primary">
+            AI-Powered Crowd, Mobility &amp; Resource Management Platform
           </h1>
           <p className="mt-5 max-w-xl text-lg text-muted-foreground">
             Real-time AI platform for crowd monitoring, prediction, emergency response and smart
@@ -164,7 +169,7 @@ function Hero() {
           />
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -204,7 +209,13 @@ function Overview() {
     { icon: Sparkles, title: "Gemini AI Copilot", desc: "Natural-language insights and recommended actions for operators." },
   ];
   return (
-    <section className="mx-auto w-[min(1200px,92%)] py-24">
+    <motion.section
+      className="mx-auto w-[min(1200px,92%)] py-24"
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.75, ease: "easeOut" }}
+    >
       <SectionHeader
         eyebrow="Platform Overview"
         title="One control center for every crowd event."
@@ -232,13 +243,19 @@ function Overview() {
           );
         })}
       </div>
-    </section>
+    </motion.section>
   );
 }
 
 function ModulesGrid() {
   return (
-    <section className="relative py-24">
+    <motion.section
+      className="relative py-24"
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.75, ease: "easeOut", delay: 0.1 }}
+    >
       <div className="mx-auto w-[min(1200px,92%)]">
         <SectionHeader
           eyebrow="7 Integrated Modules"
@@ -279,7 +296,7 @@ function ModulesGrid() {
           })}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 

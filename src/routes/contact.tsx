@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { PageShell } from "@/components/site/PageShell";
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
@@ -17,13 +18,19 @@ function Contact() {
   const [sent, setSent] = useState(false);
   return (
     <PageShell>
-      <section className="mx-auto grid w-[min(1200px,92%)] gap-10 py-20 lg:grid-cols-[1.1fr_1fr]">
+      <motion.section
+        className="mx-auto grid w-[min(1200px,92%)] gap-10 py-20 lg:grid-cols-[1.1fr_1fr]"
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.75, ease: "easeOut" }}
+      >
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-primary">
             Talk to us
           </div>
-          <h1 className="mt-5 text-5xl font-bold tracking-tight">
-            Book a <span className="text-gradient">live demo</span> on your venue.
+          <h1 className="mt-5 text-5xl font-bold tracking-tight text-black">
+            Book a <span className="text-black">live demo</span> on your venue.
           </h1>
           <p className="mt-4 max-w-lg text-muted-foreground">
             Send us a note and our public-safety solutions team will respond within one business day
@@ -85,7 +92,7 @@ function Contact() {
             </div>
           )}
         </form>
-      </section>
+      </motion.section>
     </PageShell>
   );
 }

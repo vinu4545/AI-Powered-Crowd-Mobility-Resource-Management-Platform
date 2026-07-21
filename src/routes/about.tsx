@@ -25,14 +25,20 @@ function About() {
   ];
   return (
     <PageShell>
-      <section className="relative overflow-hidden py-24">
+      <motion.section
+        className="relative overflow-hidden py-24"
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.75, ease: "easeOut" }}
+      >
         <div className="absolute inset-0 -z-10 grid-bg opacity-40" />
         <div className="mx-auto w-[min(1000px,92%)] text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-primary">
             About Orbit Services
           </div>
-          <h1 className="mt-5 text-5xl font-bold tracking-tight">
-            We build software for <span className="text-gradient">the world's command rooms.</span>
+          <h1 className="mt-5 text-5xl font-bold tracking-tight text-black">
+            We build software for <span className="text-black">the world's command rooms.</span>
           </h1>
           <p className="mt-5 text-lg text-muted-foreground">
             Orbit.AI unifies live monitoring, prediction, risk and emergency response into a single
@@ -52,7 +58,7 @@ function About() {
             className="rounded-3xl shadow-2xl"
           />
         </div>
-      </section>
+      </motion.section>
 
       <section className="mx-auto w-[min(1200px,92%)] py-16">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
