@@ -11,7 +11,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      <div className="glass-strong mx-auto mt-3 flex w-[min(1200px,95%)] items-center justify-between rounded-2xl px-4 py-2.5 shadow-[0_10px_40px_-20px_oklch(0.55_0.19_255_/_0.25)]">
+      <div className="glass-strong mx-auto mt-3 flex w-[min(1200px,95%)] items-center justify-between rounded-2xl px-4 py-2.5 shadow-[0_10px_28px_-18px_rgba(15,23,42,0.25)] backdrop-blur-lg">
         <Link to="/" className="flex items-center gap-2.5 group">
           <div className="relative">
             <div className="absolute inset-0 rounded-lg bg-primary/30 blur-md opacity-0 group-hover:opacity-100 transition" />
@@ -30,21 +30,32 @@ export function Navbar() {
             className="relative"
             onMouseEnter={() => setOpenModules(true)}
             onMouseLeave={() => setOpenModules(false)}
+            onFocus={() => setOpenModules(true)}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+                setOpenModules(false);
+              }
+            }}
           >
-            <button className="flex items-center gap-1 rounded-lg px-3 py-2 font-medium text-foreground/80 hover:text-foreground hover:bg-primary/5 transition">
+            <button
+              className="flex items-center gap-1 rounded-lg px-3 py-2 font-medium text-foreground/80 hover:text-foreground hover:bg-primary/5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+              aria-expanded={openModules}
+              aria-controls="modules-menu"
+            >
               Modules <ChevronDown className={cn("h-3.5 w-3.5 transition", openModules && "rotate-180")} />
             </button>
             <AnimatePresence>
               {openModules && (
                 <motion.div
+                  id="modules-menu"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.18 }}
-                  className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
+                  transition={{ duration: 0.22 }}
+                  className="absolute left-1/2 top-full z-20 -translate-x-1/2 pt-3"
                 >
-                  <div className="glass-strong w-[640px] rounded-2xl p-3 shadow-[0_30px_80px_-30px_oklch(0.4_0.15_255_/_0.4)]">
-                    <div className="grid grid-cols-2 gap-1.5">
+                  <div className="w-[min(780px,92vw)] rounded-[28px] border border-slate-200/70 bg-white shadow-[0_24px_80px_-40px_rgba(15,23,42,0.18)]">
+                    <div className="grid gap-3 px-4 py-4 sm:grid-cols-2 sm:px-5 sm:py-5">
                       {MODULES.map((m) => {
                         const Icon = m.icon;
                         return (
@@ -52,25 +63,30 @@ export function Navbar() {
                             key={m.slug}
                             to={"/modules/$slug" as any}
                             params={{ slug: m.slug } as any}
-                            className="group flex gap-3 rounded-xl p-3 hover:bg-primary/5 transition"
+                            className="group flex gap-3 rounded-3xl border border-transparent bg-white px-4 py-4 transition hover:border-slate-200/80 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
                           >
-                            <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br text-white shadow-md", m.accent)}>
-                              <Icon className="h-5 w-5" />
+                            <div className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white shadow-sm transition group-hover:scale-105", m.accent)}>
+                              <Icon className="h-5 w-5" aria-hidden="true" />
                             </div>
                             <div className="min-w-0">
-                              <div className="flex items-center gap-1 text-[13px] font-semibold">
-                                {m.title}
-                                <ArrowRight className="h-3 w-3 -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition" />
-                              </div>
-                              <p className="text-[11px] text-muted-foreground leading-snug mt-0.5 line-clamp-2">{m.short}</p>
+                              <p className="text-base font-semibold text-slate-950 leading-6">{m.title}</p>
+                              <p className="mt-1 text-sm leading-6 text-slate-500 truncate">{m.short}</p>
                             </div>
                           </Link>
                         );
                       })}
                     </div>
-                    <div className="mt-2 flex items-center justify-between rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 px-3 py-2 text-[11px]">
-                      <span className="text-muted-foreground">7 modules · unified in one control center</span>
-                      <Link to={"/modules/$slug" as any} params={{ slug: "command" } as any} className="font-semibold text-primary hover:underline">Open Command Center →</Link>
+                    <div className="border-t border-slate-200/70 bg-slate-50 px-5 py-4 sm:px-6">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <p className="text-sm font-semibold text-slate-700">Explore all AI-powered operational modules</p>
+                        <Link
+                          to={"/modules/$slug" as any}
+                          params={{ slug: "command" } as any}
+                          className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                        >
+                          Open Command Center →
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </motion.div>

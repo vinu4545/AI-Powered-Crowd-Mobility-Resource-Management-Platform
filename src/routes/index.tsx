@@ -20,7 +20,7 @@ import {
   Landmark,
   CheckCircle2,
 } from "lucide-react";
-import CountUp from "react-countup";
+import { CountUp } from "@/lib/countup";
 import { PageShell } from "@/components/site/PageShell";
 import { HeatmapCanvas } from "@/components/site/HeatmapCanvas";
 import { MODULES } from "@/lib/site-data";

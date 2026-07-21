@@ -1,4 +1,4 @@
-import CountUp from "react-countup";
+import { CountUp } from "@/lib/countup";
 import { cn } from "@/lib/utils";
 
 export function Stat({

@@ -3,7 +3,7 @@ import { PageShell } from "@/components/site/PageShell";
 import { HeatmapCanvas } from "@/components/site/HeatmapCanvas";
 import { MODULES } from "@/lib/site-data";
 import { motion, AnimatePresence } from "framer-motion";
-import CountUp from "react-countup";
+import { CountUp } from "@/lib/countup";
 import {
   AreaChart, Area, LineChart, Line, BarChart, Bar,
   ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid,
@@ -88,6 +88,7 @@ function ModulePage() {
         {slug === "lost-person" && <LostPersonModule />}
         {slug === "command" && <CommandModule />}
         {slug === "analytics" && <AnalyticsModule />}
+        {slug === "resource-management" && <ResourceManagementModule />}
       </div>
     </PageShell>
   );
@@ -531,7 +532,126 @@ function EmergencyModule() {
     </div>
   );
 }
+function ResourceManagementModule() {
+  const teams = [
+    { label: "Field Teams", value: 18, status: "Active", color: "from-cyan-500 to-blue-500" },
+    { label: "Medical Units", value: 12, status: "Ready", color: "from-emerald-500 to-teal-400" },
+    { label: "Support Vehicles", value: 24, status: "On route", color: "from-orange-500 to-amber-400" },
+    { label: "Control Nodes", value: 6, status: "Stable", color: "from-slate-500 to-slate-400" },
+  ];
 
+  return (
+    <div className="space-y-5">
+      <div className="grid gap-4 md:grid-cols-4">
+        <KpiCard label="Resources Available" value={328} tone="green" hint="Updated every 60s" />
+        <KpiCard label="Deployments Active" value={27} tone="blue" />
+        <KpiCard label="Optimal Utilization" value={84} suffix="%" tone="orange" />
+        <KpiCard label="Avg Response Time" value={4.3} suffix="m" decimals={1} tone="red" />
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+        <Panel title="Live Resource Allocation">
+          <div className="space-y-4">
+            {teams.map((team) => (
+              <div key={team.label} className="rounded-3xl border border-border bg-white/80 p-4 shadow-sm">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <div className="text-sm font-semibold">{team.label}</div>
+                    <div className="text-xs text-muted-foreground">{team.status}</div>
+                  </div>
+                  <div className={cn(
+                    "inline-flex rounded-2xl px-3 py-1 text-sm font-semibold text-white",
+                    team.color,
+                  )}>
+                    {team.value}
+                  </div>
+                </div>
+                <div className="mt-4 h-2 rounded-full bg-muted">
+                  <div className="h-full rounded-full bg-gradient-to-r from-primary to-cyan-400" style={{ width: `${team.value * 3}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </Panel>
+
+        <Panel title="Command Center Snapshot">
+          <div className="space-y-4 text-sm">
+            <div className="rounded-3xl bg-slate-950/70 p-5 text-white shadow-inner">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-primary">Resource Efficiency</p>
+                  <p className="mt-2 text-3xl font-bold">92%</p>
+                </div>
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-primary">
+                  <MapPin className="h-5 w-5" />
+                </div>
+              </div>
+              <p className="mt-3 text-xs text-slate-300">Routing and reserve capacity are optimized for the next wave of arrivals.</p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                { label: "Awaiting Dispatch", value: "14", icon: Upload },
+                { label: "Reserve Crew", value: "42", icon: Users },
+                { label: "Ready Kits", value: "76", icon: Cloud },
+                { label: "Incident Flags", value: "3", icon: AlertTriangle },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.label} className="rounded-3xl border border-border bg-white p-4">
+                    <div className="flex items-center gap-3 text-sm font-semibold text-slate-900">
+                      <Icon className="h-4 w-4 text-primary" /> {item.label}
+                    </div>
+                    <div className="mt-3 text-3xl font-bold">{item.value}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </Panel>
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-3">
+        <Panel title="Staging Inventory">
+          <div className="space-y-3 text-sm">
+            {[
+              { item: "Medical kits", value: 38 },
+              { item: "Water reserves", value: 120 },
+              { item: "Barrier units", value: 54 },
+            ].map((row) => (
+              <div key={row.item} className="flex items-center justify-between gap-3 rounded-3xl border border-border bg-white px-4 py-3">
+                <div>
+                  <div className="text-sm font-semibold">{row.item}</div>
+                  <div className="text-xs text-muted-foreground">Ready for redeployment</div>
+                </div>
+                <div className="text-lg font-bold">{row.value}</div>
+              </div>
+            ))}
+          </div>
+        </Panel>
+
+        <Panel title="Deployment Map">
+          <img src={crowdImg} alt="Deployment map" loading="lazy" className="h-56 w-full rounded-3xl object-cover" />
+        </Panel>
+
+        <Panel title="Recent Actions">
+          <div className="space-y-3 text-sm">
+            {[
+              { title: "Relief convoy routed", time: "2m ago" },
+              { title: "Medical unit rebalanced", time: "8m ago" },
+              { title: "Reserve crew alerted", time: "14m ago" },
+            ].map((action) => (
+              <div key={action.title} className="rounded-3xl border border-border bg-white p-4">
+                <div className="font-semibold">{action.title}</div>
+                <div className="mt-1 text-xs text-muted-foreground">{action.time}</div>
+              </div>
+            ))}
+          </div>
+        </Panel>
+      </div>
+    </div>
+  );
+}
 /* ---------- 5. Lost Person ---------- */
 
 function LostPersonModule() {
